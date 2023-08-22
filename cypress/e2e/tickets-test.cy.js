@@ -2,7 +2,7 @@
 
 import { dropDown, type, waitFor } from "../page-objects/actions.js";
 import tickets from "../page-objects/tickets";
-import selector from "../fixtures/selectors";
+import {ticketsSelector} from "../fixtures/selectors";
 
 describe("testing tickets page", () => {
   const url = "https://app.qa.dev.tactful.ai/v/engage/erp/ticketing";
@@ -28,7 +28,7 @@ describe("testing tickets page", () => {
       cy.get(".id-number").should("exist").contains(value);
     };
     cy.visit(url);
-    tickets.filter(type, assertion, [selector.ticketNumber, 1], [1]);
+    tickets.filter(type, assertion, [ticketsSelector.ticketNumber, 1], [1]);
   });
 
   it("should filter by non existing ticket id", () => {
@@ -37,7 +37,7 @@ describe("testing tickets page", () => {
       cy.get('td [role="alert"]  ').contains("There are no records to show");
     };
 
-    tickets.filter(type, assertion, [selector.ticketNumber, 9999]);
+    tickets.filter(type, assertion, [ticketsSelector.ticketNumber, 9999]);
   });
 
   it("should filter by non existing ticket id", () => {
@@ -46,7 +46,7 @@ describe("testing tickets page", () => {
       tickets.isContainRecords()
     };
 
-    tickets.filter(type, assertion, [selector.ticketNumber, -2]);
+    tickets.filter(type, assertion, [ticketsSelector.ticketNumber, -2]);
   });
 
   it("should filter by non existing ticket id", () => {
@@ -55,7 +55,7 @@ describe("testing tickets page", () => {
       tickets.isContainRecords()
     };
 
-    tickets.filter(type, assertion, [selector.ticketNumber, 0]);
+    tickets.filter(type, assertion, [ticketsSelector.ticketNumber, 0]);
   });
 
   it("should filter by an existing username", () => {
@@ -65,7 +65,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       type,
       assertionFn,
-      [selector.userName, "first customer"],
+      [ticketsSelector.userName, "first customer"],
       [6]
     );
   });
@@ -78,7 +78,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       type,
       assertionFn,
-      [selector.userName, "second customer"],
+      [ticketsSelector.userName, "second customer"],
       [0]
     );
   });
@@ -93,8 +93,8 @@ describe("testing tickets page", () => {
       dropDown,
       assertionFn,
       [
-        selector.assignedToDrobDown,
-        selector.assignedToList,
+        ticketsSelector.assignedToDrobDown,
+        ticketsSelector.assignedToList,
         "Training Program",
       ],
       [6, "14"]
@@ -110,7 +110,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       dropDown,
       assertionFn,
-      [selector.requestTime, selector.requestTimeCalender, "14"],
+      [ticketsSelector.requestTime, ticketsSelector.requestTimeCalender, "14"],
       [5, "14"]
     );
   });
@@ -120,8 +120,8 @@ describe("testing tickets page", () => {
       tickets.isContainRecords()
     }
     tickets.filter(dropDown, assertionFn, [
-      selector.requestTime,
-      selector.requestTimeCalender,
+      ticketsSelector.requestTime,
+      ticketsSelector.requestTimeCalender,
       "20",
     ]);
   });
@@ -136,7 +136,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       dropDown,
       assertionFn,
-      [selector.categoryDrobDown, selector.categoryList, "Incident"],
+      [ticketsSelector.categoryDrobDown, ticketsSelector.categoryList, "Incident"],
       ["Incident"]
     );
   });
@@ -148,8 +148,8 @@ describe("testing tickets page", () => {
     }
 
     tickets.filter(dropDown, assertionFn, [
-      selector.categoryDrobDown,
-      selector.categoryList,
+      ticketsSelector.categoryDrobDown,
+      ticketsSelector.categoryList,
       "Task",
     ]);
   });
@@ -164,7 +164,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       dropDown,
       assertionFn,
-      [selector.statusDrobDown, selector.statusList, "New"],
+      [ticketsSelector.statusDrobDown, ticketsSelector.statusList, "New"],
       ["New"]
     );
   });
@@ -179,8 +179,8 @@ describe("testing tickets page", () => {
     }
 
     tickets.filter(dropDown, assertionFn, [
-      selector.statusDrobDown,
-      selector.statusList,
+      ticketsSelector.statusDrobDown,
+      ticketsSelector.statusList,
       "Canceled",
     ]);
   });
@@ -197,7 +197,7 @@ describe("testing tickets page", () => {
     tickets.filter(
       dropDown,
       assertionFn,
-      [selector.priorityDrobDown, selector.priorityList, "High"],
+      [ticketsSelector.priorityDrobDown, ticketsSelector.priorityList, "High"],
       ["tactful-badge-icon-high"]
     );
   });
@@ -212,8 +212,8 @@ describe("testing tickets page", () => {
     }
 
     tickets.filter(dropDown, assertionFn, [
-      selector.priorityDrobDown,
-      selector.priorityList,
+      ticketsSelector.priorityDrobDown,
+      ticketsSelector.priorityList,
       "Normal",
     ]);
   });
@@ -230,20 +230,20 @@ describe("testing tickets page", () => {
     tickets.filter(
       dropDown,
       assertionFn,
-      [selector.channelDrobDown, selector.channelList, "test 9753"],
+      [ticketsSelector.channelDrobDown, ticketsSelector.channelList, "test 9753"],
       ["test 9753"]
     );
   });
 
   it("Should Filter by multi channel", () => {
     const params = [
-      selector.userName,
+      ticketsSelector.userName,
       "first customer",
-      selector.categoryDrobDown,
-      selector.categoryList,
+      ticketsSelector.categoryDrobDown,
+      ticketsSelector.categoryList,
       "Incident",
-      selector.requestTime,
-      selector.requestTimeCalender,
+      ticketsSelector.requestTime,
+      ticketsSelector.requestTimeCalender,
       "14",
     ];
 
@@ -254,7 +254,7 @@ describe("testing tickets page", () => {
       cy.get(' td[aria-colindex="7"] > div ').contains(date).should("exist");
     }
     function testCaseFn(
-      usernameSelector,
+      ticketsSsernameSelector,
       userName,
       category,
       categoryList,
@@ -263,7 +263,7 @@ describe("testing tickets page", () => {
       calender,
       time
     ) {
-      type(usernameSelector, userName);
+      type(ticketsSsernameSelector, userName);
       dropDown(category, categoryList, categoryOption);
       dropDown(requestTime, calender, time);
     }
@@ -272,15 +272,15 @@ describe("testing tickets page", () => {
 
   it("see detials", () => {
     function isSuccess(colorRGB) {
-      cy.get(selector.statusContainer).should(
+      cy.get(ticketsSelector.statusContainer).should(
         "have.css",
         "background-color",
         colorRGB
       );
-      cy.get(selector.notificationGroup, { timeout: 6000 })
+      cy.get(ticketsSelector.notificationGroup, { timeout: 6000 })
         .should("exist")
         .and("contain.text", "SUCCESS Saving Information Succeeded");
-      cy.get(selector.notificationGroup).click();
+      cy.get(ticketsSelector.notificationGroup).click();
     }
     cy.visit("https://app.qa.dev.tactful.ai/v/engage/erp/editTicket/406");
     waitFor(".loader-container", "not.exist");

@@ -2,14 +2,13 @@ const def = {
   wait: undefined,
   assertionFunction(el) {},
   force: false,
-  
 };
 
 export function type(selectors, value, options = {}) {
   if (typeof selectors === "string") {
-      return cy
-        .get(selectors, options.configGet)
-        .type(value, options.configAction);
+    return cy
+      .get(selectors, options.configGet)
+      .type(value, options.configAction);
   } else if (Array.isArray(selectors) && Array.isArray(value)) {
     return selectors.forEach((selector, index) => {
       cy.get(selector, options.configGet).type(
@@ -44,7 +43,7 @@ export function clickOn(selector, text) {
 export function click(selectors, options = def) {
   if (typeof selectors === "string") {
     cy.get(selectors, { timeout: options.wait })
-     // .should("exist")
+      // .should("exist")
       .click({ force: options.force })
       .then(() => {
         if (typeof options.assertionFunction === "function") {
@@ -65,11 +64,17 @@ export function click(selectors, options = def) {
   }
 }
 
-export function dropDown(dropDownBtn, optionList, option) {
+export function dropDown(dropDownBtn, optionList, text,options={}) {
   click(dropDownBtn);
 
   //choose from options of the drop down menu
-  cy.get(optionList).contains(option).click();
+  if (Array.isArray(text)) {
+    text.forEach(($option) => {
+      cy.get(optionList).contains($option).click(options.clickConfig||{force:false});
+    });
+  } else if (typeof text == "string") {
+    cy.get(optionList).contains(text).click(options.clickConfig||{force:false});
+  }
 }
 
 export function check(selectors, options = def) {
