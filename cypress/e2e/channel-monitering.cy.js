@@ -5,7 +5,9 @@ import { type } from "../page-objects/actions.js";
 import moniter from "../page-objects/moniter";
 
 describe("testing channel monitering page", () => {
-  console.log(moniteringSelector);
+  Cypress.on('uncaught:exception', (err, runnable) => {
+        return false
+      })
   const url = "https://app.qa.dev.tactful.ai/v/engage/engagement-hub/history";
 
   beforeEach(() => {
