@@ -1,13 +1,14 @@
 /// <reference types="cypress"/>
 
 import { moniteringSelector } from "../fixtures/selectors.js";
-import { type } from "../page-objects/actions.js";
 import moniter from "../page-objects/moniter";
 
 describe("testing channel monitering page", () => {
-  Cypress.on('uncaught:exception', (err, runnable) => {
-        return false
-      })
+  Cypress.on("uncaught:exception", (err, runnable) => {
+    return false;
+  });
+
+  console.log(moniteringSelector);
   const url = "https://app.qa.dev.tactful.ai/v/engage/engagement-hub/history";
 
   beforeEach(() => {
@@ -25,32 +26,29 @@ describe("testing channel monitering page", () => {
     });
   }
   it("should filter according to the chosen agent", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.agentDrobDown,
       moniteringSelector.agentList,
       "bot",
       AssertionFn,
       ["5", "bot"]
     );
-    moniter.clickReset();
 
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.agentDrobDown,
       moniteringSelector.agentList,
       "Unassigned"
     );
-    moniter.clickReset();
   });
 
   it("should filter by multible agents", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.agentDrobDown,
       moniteringSelector.agentList,
       ["bot", "Unassigned"],
       AssertionFn,
       ["5", "bot"]
     );
-    moniter.clickReset();
   });
 
   it("should filter by chosen channel", () => {
@@ -61,19 +59,17 @@ describe("testing channel monitering page", () => {
         "/img/eng-img/icons/webchat-icon.png"
       );
     }
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.channelDrobDown,
       moniteringSelector.channelList,
       "Whatsapp"
     );
-    moniter.clickReset();
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.channelDrobDown,
       moniteringSelector.channelList,
       "Web",
       assertFn
     );
-    moniter.clickReset();
   });
   it("should filter by multible channels", () => {
     function assertFn() {
@@ -83,7 +79,7 @@ describe("testing channel monitering page", () => {
         "/img/eng-img/icons/webchat-icon.png"
       );
     }
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.channelDrobDown,
       moniteringSelector.channelList,
       ["Web", "Whatsapp"],
@@ -92,92 +88,129 @@ describe("testing channel monitering page", () => {
   });
 
   it("should filter according to the chosen tag", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.tagsDrobDown,
       moniteringSelector.tagsList,
       "Active"
     );
-    moniter.clickReset();
 
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.tagsDrobDown,
       moniteringSelector.tagsList,
       "Top fan"
     );
-    moniter.clickReset();
 
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.tagsDrobDown,
       moniteringSelector.tagsList,
       "Premium"
     );
-    moniter.clickReset();
   });
 
   it("should filter by multible tags selection", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.tagsDrobDown,
       moniteringSelector.tagsList,
       ["Active", "Top fan", "Premium"]
     );
-    moniter.clickReset();
   });
 
   it("should filter according to the chosen queue", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.queueDrobDown,
       moniteringSelector.queueList,
       "queue test"
     );
-    moniter.clickReset();
-    moniter.drobDownFilter(
+
+    moniter.drobDownFilterOnly(
       moniteringSelector.queueDrobDown,
       moniteringSelector.queueList,
       "email queue"
     );
-    moniter.clickReset();
-    moniter.drobDownFilter(
+
+    moniter.drobDownFilterOnly(
       moniteringSelector.queueDrobDown,
       moniteringSelector.queueList,
       "default",
       AssertionFn,
       ["10", "default"]
     );
-    moniter.clickReset();
   });
 
   it("should filter by multible queue selection", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.queueDrobDown,
       moniteringSelector.queueList,
       ["default", "queue test", "email queue"],
       AssertionFn,
       ["10", "default"]
     );
-    moniter.clickReset();
   });
 
   it("should filter according to the chosen handover", () => {
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.HandoverDrobDown,
       moniteringSelector.handOverList,
       "agent_active"
     );
-    moniter.clickReset();
 
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.HandoverDrobDown,
       moniteringSelector.handOverList,
       "pending"
     );
-    moniter.clickReset();
 
-    moniter.drobDownFilter(
+    moniter.drobDownFilterOnly(
       moniteringSelector.HandoverDrobDown,
       moniteringSelector.handOverList,
       "redirect"
     );
-    moniter.clickReset();
+
+    moniter.drobDownFilterOnly(
+      moniteringSelector.HandoverDrobDown,
+      moniteringSelector.handOverList,
+      "bot_active",
+      AssertionFn,
+      ["8", "Bot Active"]
+    );
+  });
+
+  it("should filter by multible handover selection", () => {
+    moniter.drobDownFilterOnly(
+      moniteringSelector.HandoverDrobDown,
+      moniteringSelector.handOverList,
+      ["agent_active", "pending", "redirect", "bot_active"],
+      AssertionFn,
+      ["8", "Bot Active"]
+    );
+  });
+
+  it("should filter by an existing nick name", () => {
+    moniter.inputFilterOnly(
+      moniteringSelector.nickName,
+      "new user",
+      AssertionFn,
+      ["2", "New User"]
+    );
+  });
+
+  it("should filter by an non existing nick name", () => {
+    moniter.inputFilterOnly(moniteringSelector.nickName, "wrong user");
+  });
+
+  it("should filter with multible filters", () => {
+    function assertFn() {
+      cy.get('[aria-colindex="7"] img').should(
+        "have.attr",
+        "src",
+        "/img/eng-img/icons/webchat-icon.png"
+      );
+    }
+
+    moniter.inputFilter(moniteringSelector.nickName, "new user", AssertionFn, [
+      "2",
+      "New User",
+    ]);
     moniter.drobDownFilter(
       moniteringSelector.HandoverDrobDown,
       moniteringSelector.handOverList,
@@ -185,64 +218,12 @@ describe("testing channel monitering page", () => {
       AssertionFn,
       ["8", "Bot Active"]
     );
-    moniter.clickReset();
-  });
 
-  it("should filter by multible handover selection", () => {
     moniter.drobDownFilter(
-      moniteringSelector.HandoverDrobDown,
-      moniteringSelector.handOverList,
-      ["agent_active", "pending", "redirect", "bot_active"],
-      AssertionFn,
-      ["8", "Bot Active"]
+      moniteringSelector.channelDrobDown,
+      moniteringSelector.channelList,
+      "Web",
+      assertFn
     );
-    moniter.clickReset();
   });
-
-  it("should filter by an existing nick name", () => {
-    moniter.inputFilter(moniteringSelector.nickName, "new user", AssertionFn, [
-      "2",
-      "New User",
-    ]);
-    moniter.clickReset();
-  });
-
-  it("should filter by an non existing nick name", () => {
-    moniter.inputFilter(moniteringSelector.nickName, "wrong user");
-    moniter.clickReset();
-  });
-
-
-  it("should filter with multible filters", () => {
-
-    function assertFn() {
-        cy.get('[aria-colindex="7"] img').should(
-          "have.attr",
-          "src",
-          "/img/eng-img/icons/webchat-icon.png"
-        );
-      }
-
-    moniter.inputFilter(moniteringSelector.nickName, "new user", AssertionFn, [
-        "2",
-        "New User",
-      ]);
-      moniter.drobDownFilter(
-        moniteringSelector.HandoverDrobDown,
-        moniteringSelector.handOverList,
-        "bot_active",
-        AssertionFn,
-        ["8", "Bot Active"]
-      );
-
-      moniter.drobDownFilter(
-        moniteringSelector.channelDrobDown,
-        moniteringSelector.channelList,
-        "Web",
-        assertFn
-      );
-
-    moniter.clickReset();
-  });
-
 });
