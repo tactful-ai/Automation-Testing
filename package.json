@@ -4,11 +4,12 @@
   "description": "Automation Testing using Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "test",
     "cypress:open": "cypress open --browser chrome --e2e",
     "cypress:runDefault": "cypress run --spec cypress/e2e/*.cy.js",
     "cypress:chrome": "cypress run --browser chrome --spec cypress/e2e/*.cy.js",
-    "cypress:edge": "cypress run --browser edge --spec cypress/e2e/*.cy.js"
+    "cypress:edge": "cypress run --browser edge --spec cypress/e2e/*.cy.js",
+    "scripts": "cypress run",
+    "test": "npm run scripts"
   },
   "keywords": [],
   "author": "",
