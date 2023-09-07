@@ -1,0 +1,14 @@
+name: Run-all-tests
+on: workflow_dispatch
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    name: Running Tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cypress-io/github-action@v6
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-report
+          path: cypress/reports/html
