@@ -157,7 +157,7 @@ describe("webchat creation tests", () => {
       clickOn(["button", "Discard"]);
       cy.get(webchatSelector.tagInput).should("contain.value", "2");
     });
-    it.only("check edit channel name with another valid name ", () => {
+    it("check edit channel name with another valid name ", () => {
         webchatData.editCount +=1
         cy.writeFile("cypress/fixtures/webchat-data.json" , JSON.stringify(webchatData));
       webchat.editWebChannelName("2", `${webchatData.editedName} ${webchatData.editCount}`);
