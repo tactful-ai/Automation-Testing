@@ -154,7 +154,7 @@ describe("testing tickets page", () => {
     );
   });
 
-  it.only("Should Filter by ticket priority while there're non existing tickets has this priority ", () => {
+  it("Should Filter by ticket priority while there're non existing tickets has this priority ", () => {
     function assertionFn(value) {
       cy.get('td[aria-colindex="2"] > :nth-child(1) > :nth-child(1) > div > .fas').each(($el) => {
         expect($el).to.have.class(value);
