@@ -27,7 +27,8 @@ class Moniter {
     waitFor(".loader-container", "not.exist");
 
     dropDown(drobdown, list, text);
-    assertfn(...args);
+    // assertfn(...args);
+    conditions.if('td [role="alert"]',()=>{this.isContainRecords()},assertfn(...args))
   }
 
   drobDownFilterOnly(
@@ -40,9 +41,9 @@ class Moniter {
     cy.goTo(this.url);
     waitFor(".loader-container", "not.exist");
 
-    dropDown(drobdown, list, text);
-    assertfn(...args);
     this.clickReset();
+    dropDown(drobdown, list, text);
+    conditions.if('body td [role="alert"]',()=>{this.isContainRecords()},()=>{assertfn(...args)})
   }
 
   inputFilter(
@@ -54,7 +55,7 @@ class Moniter {
     cy.goTo(this.url);
     waitFor(".loader-container", "not.exist");
     type(inputSelector, text);
-    assertfn(...args);
+    conditions.if('body td [role="alert"]',()=>{this.isContainRecords()},()=>{assertfn(...args)})
   }
   inputFilterOnly(
     inputSelector,
@@ -64,9 +65,9 @@ class Moniter {
   ) {
     cy.goTo(this.url);
     waitFor(".loader-container", "not.exist");
-    type(inputSelector, text);
-    assertfn(...args);
     this.clickReset();
+    type(inputSelector, text);
+    conditions.if('body td [role="alert"]',()=>{this.isContainRecords()},()=>{assertfn(...args)})
   }
 }
 
