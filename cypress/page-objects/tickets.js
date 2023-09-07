@@ -1,11 +1,13 @@
 import {
   assert,
   click,
+  clickOn,
   waitFor,
 } from "./actions";
+import { ticketsSelector } from "../fixtures/selectors";
 
 class Tickets {
-  url = "https://app.qa.dev.tactful.ai/v/engage/erp/ticketing";
+  url = "https://app.qa.dev.tactful.ai/v/engage/erp/ticketing?display_id=&ticket_status=&ticket_priority=&created_on=&assignee_id=&ticket_type=&requester_name=&limit=15&page=1&channels_ids=";
 
   filter(testCaseFn, assertionFn, testCaseArgs = [], assertionArgs = []) {
     
@@ -21,7 +23,7 @@ class Tickets {
     waitFor(".loader-container", "not.exist")
 
     assert([{ selector: 'th[role="columnheader"]', value: 8 }], "have.length");
-
+    // cy.wait(5000)
     //test case function
     testCaseFn.apply(this, testCaseArgs);
 
@@ -34,25 +36,19 @@ class Tickets {
    
     //assertion function
     assertionFn.apply(this, assertionArgs);
-
-   
+  }
+  
+   filterByDate(year,month,day,drobdownselector=ticketsSelector.requestTime, monthdaybtn=ticketsSelector.dayMonthBtn,yearmonthbtn=ticketsSelector.monthYearBtn,datePicker=ticketsSelector.datePicker) {
+    click([drobdownselector,monthdaybtn,yearmonthbtn])
+    clickOn([[datePicker,year],[datePicker,month],[datePicker,day]],{clickConfig:{force:true}})
   }
 
-  isContainRecords() {
+  isContainRecords(args) {
     return cy
-      .get('td [role="alert"]  ')
+      .get('td [role="alert"]')
       .contains("There are no records to show")
       .should("exist")
       .and("have.length", 1);
-  }
-
-  queryFilter(t ){
-    cy.visit(`https://app.qa.dev.tactful.ai/v/engage/erp/ticketing?display_id=${t?.id||""}-20&ticket_status=${t?.ticketstatus||""}&ticket_priority=${t.priority||""}&created_on=&assignee_id=&ticket_type=&requester_name=first%20customer&limit=15&page=1&channels_ids=`)
-    waitFor(".loader-container", "not.exist");
-    cy.contains(':nth-child(2) > [data-test="resetBtn"]', "Search").click({
-      force: true,
-      timeout:1000
-    });
   }
 }
 let tickets = new Tickets();

@@ -10,14 +10,19 @@ describe("testing channel monitering page", () => {
 
   console.log(moniteringSelector);
   const url = "https://app.qa.dev.tactful.ai/v/engage/engagement-hub/history";
-
-  beforeEach(() => {
+ 
+  // beforeEach(() => {
+    
+  // });
+  before(()=>{
     cy.intercept(`*`, { log: false });
-    cy.sessionLogin(
+    cy.manualLogin(
       { selector: "#username", value: "hipeme4062@tipent.com " },
-      { selector: "#password", value: "TrainingProgram2023" }
-    );
-  });
+      { selector: "#password", value: "TrainingProgram2023" },
+      url,
+      "#kc-form-buttons"
+    )
+  })
   function AssertionFn(selector, value, options = {}) {
     cy.get(
       `td[aria-colindex="${selector}"] ${options.specifiedChildren || ""}`
@@ -25,7 +30,10 @@ describe("testing channel monitering page", () => {
       expect($el).to.contain(value);
     });
   }
+
+
   it("should filter according to the chosen agent", () => {
+
     moniter.drobDownFilterOnly(
       moniteringSelector.agentDrobDown,
       moniteringSelector.agentList,
@@ -33,7 +41,7 @@ describe("testing channel monitering page", () => {
       AssertionFn,
       ["5", "bot"]
     );
-
+    
     moniter.drobDownFilterOnly(
       moniteringSelector.agentDrobDown,
       moniteringSelector.agentList,
@@ -206,7 +214,7 @@ describe("testing channel monitering page", () => {
         "/img/eng-img/icons/webchat-icon.png"
       );
     }
-
+    moniter.clickReset()
     moniter.inputFilter(moniteringSelector.nickName, "new user", AssertionFn, [
       "2",
       "New User",
