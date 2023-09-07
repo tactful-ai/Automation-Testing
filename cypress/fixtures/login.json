@@ -1,0 +1,4 @@
+{
+  "username": { "selector": "#username", "value": "hipeme4062@tipent.com " },
+  "password": { "selector": "#password", "value": "TrainingProgram2023" }
+}
