@@ -160,8 +160,9 @@ describe("webchat creation tests", () => {
     it("check edit channel name with another valid name ", () => {
         webchatData.editCount +=1
         cy.writeFile("cypress/fixtures/webchat-data.json" , JSON.stringify(webchatData));
-      webchat.editWebChannelName("2", `${webchatData.editCount}`);
-      cy.get(webchatSelector.channelName, { timeout: 15000 }).contains(`${webchatData.editCount}`).should("exist");
+      webchat.editWebChannelName("2", `${webchatData.editedName}${webchatData.editCount}`);
+      cy.get(webchatSelector.channelName, { timeout: 15000 }).contains(`${webchatData.editedName}${webchatData.editCount}`).should("exist");
+      webchat.editWebChannelName("2", `${webchatData.editedName}${webchatData.editCount-1}`);
     });
     it("check editing tag to an existent tag at thesame profile", () => {
       webchat.editWebChannelTag("2", "tag");
