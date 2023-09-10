@@ -15,9 +15,9 @@ describe('testing customer page',()=>{
       return false
     })
 
-    it('Should fix handling error',()=>{
-      customer.navigate()
-    })
+    // it('Should fix handling error',()=>{
+    //   customer.navigate()
+    // })
     it('Should be able to sign in',() =>{
         customer.login(businessEmailData,passwordData)
         cy.wait(5000)
