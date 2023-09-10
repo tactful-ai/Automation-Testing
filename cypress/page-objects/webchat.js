@@ -39,7 +39,7 @@ class Webchat {
   editWebChannelName(tag,newName){
     cy.goTo(this.getEditUrl(tag))
         waitFor(".loader-container", "not.exist");
-        cy.get(webchatSelector.channelNameInput).type(newName)
+        type(webchatSelector.channelNameInput,newName)
         clickOn(["button","Save"])
         
   }
