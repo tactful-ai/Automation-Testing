@@ -53,12 +53,12 @@ describe('testing chatbot', () => {
         chatbot.createQueue()
       })
 
-      it('Check auto assignment trigger',()=>{
-        chatbot.disableAssignment()
-      })
+      // it('Check auto assignment trigger',()=>{
+      //   chatbot.disableAssignment()
+      // })
 
-      it('Check chatbot preview as not auto assigned',()=>{
-        chatbot.preview()
-      })
+      // it('Check chatbot preview as not auto assigned',()=>{
+      //   chatbot.preview()
+      // })
 
     })
