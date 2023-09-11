@@ -14,7 +14,7 @@ export function login(businessEmailData,passwordData){
 }
 
 export function faqs(){
-    cy.visit('https://app.dstnyengage.com/v/engage/erp/faq')
+    cy.visit('https://app.qa.dev.tactful.ai/v/engage/erp/faq')
     cy.get('[aria-colindex="1"] > div').should('have.text','Title')
     cy.get('[aria-colindex="2"] > div').should('have.text','Answer')
     cy.get('[aria-colindex="3"] > div').should('have.text','Language')

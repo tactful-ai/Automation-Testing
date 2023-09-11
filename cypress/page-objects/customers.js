@@ -31,6 +31,8 @@ export function newCustomerErrorVisibility(){
 export function createNewCustomer(businessEmailData,firstNameData,phoneData){
     cy.get('.create-customer-model__dropdown-margin-email-input > .mb-4 > span > .tactful-input > .form-input-with-icon-search').type(businessEmailData)
     cy.get(':nth-child(4) > span > .tactful-input > .form-input-with-icon-search').type(firstNameData)
+    cy.get('#vs3__combobox').click()
+    cy.contains('Egypt').click()
     cy.get('.tactful-tel-input__input').type(phoneData)
     cy.get('#vs6__combobox > .vs__selected-options > .vs__search').click()
     cy.contains('email').click()
