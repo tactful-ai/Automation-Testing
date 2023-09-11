@@ -154,6 +154,7 @@ describe("webchat creation tests", () => {
       cy.goTo(webchat.getEditUrl("2"));
       waitFor(".loader-container", "not.exist");
       type(webchatSelector.tagInput, "22");
+      cy.wait(6000);
       clickOn(["button", "Discard"]);
       cy.get(webchatSelector.tagInput).should("contain.value", "2");
     });
