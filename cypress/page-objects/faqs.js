@@ -38,7 +38,8 @@ export function newFaqs(){
     cy.get('.vs__search').click()
     cy.contains('English').click()
     cy.get('.tactful-textarea-input').type('Test Answers')
-    cy.get('.tactful-button-primary').click()
+    cy.get('.cancel-faq-edit').click()
+    // cy.get('.tactful-button-primary').click()
 }
 
 export function updateFaqs(){
