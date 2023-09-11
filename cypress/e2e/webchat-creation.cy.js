@@ -165,7 +165,7 @@ describe("webchat creation tests", () => {
       webchat.editWebChannelName("2", `${webchatData.editedName}${webchatData.editCount-1}`);
     });
     it("check editing tag to an existent tag at thesame profile", () => {
-      webchat.editWebChannelTag("2", "tag");
+      webchat.editWebChannelTag("tag4", "tag");
       waitFor(".loader-container", "not.exist");
 
       cy.get(".danger", { timeout: 6000 }).should("exist");
