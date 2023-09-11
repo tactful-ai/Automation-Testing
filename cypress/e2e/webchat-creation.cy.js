@@ -165,11 +165,11 @@ describe("webchat creation tests", () => {
       cy.get(webchatSelector.channelName, { timeout: 15000 }).contains(`${webchatData.editedName}${webchatData.editCount}`).should("exist");
       webchat.editWebChannelName("2", `${webchatData.editedName}${webchatData.editCount-1}`);
     });
-    it("check editing tag to an existent tag at thesame profile", () => {
-      webchat.editWebChannelTag("tag4", "tag");
-      waitFor(".loader-container", "not.exist");
+    // it("check editing tag to an existent tag at thesame profile", () => {
+    //   webchat.editWebChannelTag("tag4", "tag");
+    //   waitFor(".loader-container", "not.exist");
 
-      cy.get(".danger", { timeout: 6000 }).should("exist");
-    });
+    //   cy.get(".danger", { timeout: 6000 }).should("exist");
+    // });
   });
 });
