@@ -1,0 +1,53 @@
+
+name: run all tests in parallel
+
+on:
+  workflow_dispatch:
+   
+jobs:
+  # This workflow contains a two jobs called "list-files & parallel_testing "
+
+  #this job list all test files and put them in a matrix
+  list-files:
+    runs-on: ubuntu-latest
+    outputs:
+      paths: ${{ steps.list-files.outputs.paths }}
+    steps:
+      - name: List Files
+        id: list-files
+        uses: mirko-felice/list-files-action@v3.0.5
+        with:
+          repo: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          path: "./cypress/e2e"
+          ext: ".cy.js"
+      
+  #this job run all tests in parallel and then upload the report
+  parallel_testing:
+    needs: list-files 
+    strategy:
+      fail-fast: false
+      matrix:
+        tests: ${{fromJson(needs.list-files.outputs.paths)}}
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+      - name: ${{matrix.tests}}.js
+        uses: cypress-io/github-action@v6
+        with:
+          spec: ${{matrix.tests}}
+      - name: Get file name
+        if: always()
+        id: file-names
+        run: |
+          file_name=$(basename ${{matrix.tests}})
+          echo "name=$file_name" >> $GITHUB_ENV
+      - name: upload report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:         
+          name: test-${{env.name}}
+          path: cypress/reports/html
+
+  
