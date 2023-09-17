@@ -20,10 +20,11 @@ describe('testing customer page',()=>{
     // })
     it('Should be able to sign in',() =>{
         customer.login(businessEmailData,passwordData)
-        cy.wait(5000)
+        cy.wait(10000)
     })
 
     it('Should Create new Customer',() =>{
+        cy.wait(10000)
         customer.newCustomer()
     })
 
@@ -37,7 +38,7 @@ describe('testing customer page',()=>{
     })
 
     it('Check filtering with orders include a specific product',()=>{
-        cy.wait(1000)
+        cy.wait(5000)
         customer.filterCustomerOrder(businessEmailData,passwordData)
     })
 

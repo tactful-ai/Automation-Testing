@@ -11,9 +11,9 @@ export function login(businessEmailData,passwordData){
     // cy.visit('https://practice.automationbro.com/contact')
     // cy.visit('https://app.qa.dev.tactful.ai/v/engage/engagement-hub/agent-desktop')
     cy.visit('https://keycloak.eco.dev.tactful.ai/realms/engage/protocol/openid-connect/auth?client_id=tactful&response_type=code&redirect_uri=https%3A%2F%2Fapp.qa.dev.tactful.ai%2Fv%2Fengage%2Fengagement-hub%2Fagent-desktop&scope=openid')
-    // cy.get('#username').type('hipeme4062@tipent.com')
-    // cy.get('#password').type('TrainingProgram2023')
-    // cy.get('#kc-form-buttons').click()
+    cy.get('#username').type('hipeme4062@tipent.com')
+    cy.get('#password').type('TrainingProgram2023')
+    cy.get('#kc-form-buttons').click()
 }
 
 export function readyStatus(){
@@ -27,6 +27,10 @@ export function validateReadyStatus(){
     cy.contains('Ready').click()
     cy.get('.nav-element-msg > .d-flex > .status-indicator').should('be.visible')
     cy.get('.nav-element-email > .d-flex > .status-indicator').should('be.visible')
+    cy.wait(10000)
+    cy.get('.chat-list-conversation__iteration').click()
+    cy.get('.blocked-footer__action-container > .tactful-button-primary').click()
+    cy.get('#bv-modal-activateBot___BV_modal_footer_ > .tactful-button-primary').click()
 }
 
 export function validateNoConversation(){

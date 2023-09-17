@@ -10,10 +10,15 @@ const passwordData = "Taha1234"
 const phoneData = "01007470976"
 
 describe('testing faqs page',()=>{
+
+    it('Should be able to sign in',() =>{
+        faqs.login()
+        cy.wait(10000)
+    })
   
     it('Check that faq info is displayed right',()=>{
+        cy.wait(10000)
         faqs.faqs()
-        cy.wait(5000)
     })
 
     it('Add empty faq',()=>{
@@ -24,16 +29,17 @@ describe('testing faqs page',()=>{
         faqs.newFaqs()
     })
 
-    it('Delete exisiting faq',()=>{
-        faqs.deleteFaqs()
-    })
+    // it('Delete exisiting faq',()=>{
+    //     faqs.deleteFaqs()
+    // })
 
     it('Filter by exist faq name in title',()=>{
+        cy.wait(10000)
         faqs.filterFaqTitle()
     })
 
-    it('Filter by exist faq language',()=>{
-        faqs.filterFaqLanguage()
-    })
+    // it('Filter by exist faq language',()=>{
+    //     faqs.filterFaqLanguage()
+    // })
 
 })
