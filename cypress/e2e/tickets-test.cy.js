@@ -215,6 +215,7 @@ describe("testing tickets page", () => {
     }
     cy.visit("https://app.qa.dev.tactful.ai/v/engage/erp/editTicket/406");
     waitFor(".loader-container", "not.exist");
+    cy.wait(5000)
     dropDown(".status-container button", ".status-container div", "New");
     isSuccess("rgb(230, 195, 72)");
     dropDown(".status-container button", ".status-container div", "Solved");
