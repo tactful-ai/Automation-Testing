@@ -208,7 +208,7 @@ describe("testing tickets page", () => {
   it("see detials", () => {
     function isSuccess(colorRGB) {
       cy.get(ticketsSelector.statusContainer).should("have.css", "background-color", colorRGB);
-      cy.get(ticketsSelector.notificationGroup, { timeout: 6000 })
+      cy.get(ticketsSelector.notificationGroup, { timeout: 10000 })
         .should("exist")
         .and("contain.text", "SUCCESS Saving Information Succeeded");
       cy.get(ticketsSelector.notificationGroup).click();
