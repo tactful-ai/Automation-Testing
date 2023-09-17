@@ -7,7 +7,7 @@ Cypress.Commands.add("goTo", (url) => {
     if ($url.includes("?")) {
       let index = $url.search("?");
       if ($url.slice(0, index) !== url) {
-        cy.visit(url);
+        cy.visit(url,{headers:{"Accept-Encoding": "gzip, deflate"}});
       }
     } else if ($url !== url) {
       //if we are already not visiting the wanted url visit url
@@ -34,7 +34,7 @@ Cypress.Commands.add("reWrite", (file, editFn) => {
 
 Cypress.Commands.add("manualLogin", (username, password, url, button) => {
   const loginUrl = `https://keycloak.eco.dev.tactful.ai/realms/engage/protocol/openid-connect/auth?client_id=tactful&response_type=code&redirect_uri=${url}`;
-  cy.visit(loginUrl);
+  cy.visit(loginUrl,{headers:{"Accept-Encoding": "gzip, deflate"}});
   waitFor(".loader-container", "not.exist");
   cy.url().then(($url) => {
     if ($url == loginUrl) {
