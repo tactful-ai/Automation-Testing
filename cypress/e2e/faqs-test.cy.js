@@ -11,10 +11,25 @@ const phoneData = "01007470976"
 
 describe('testing faqs page',()=>{
 
-    it('Should be able to sign in',() =>{
-        faqs.login()
-        cy.wait(10000)
+    const url = "https://app.qa.dev.tactful.ai/v/engage/erp/faq";
+     
+    // beforeEach(() => {
+      
+    // });
+    before(()=>{
+      cy.manualLogin(
+        { selector: "#username", value: "hipeme4062@tipent.com " },
+        { selector: "#password", value: "TrainingProgram2023" },
+        url,
+        "#kc-form-buttons"
+      )
     })
+
+
+    // it('Should be able to sign in',() =>{
+    //     faqs.login()
+    //     cy.wait(10000)
+    // })
   
     it('Check that faq info is displayed right',()=>{
         cy.wait(10000)

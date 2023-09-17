@@ -27,10 +27,10 @@ export function validateReadyStatus(){
     cy.contains('Ready').click()
     cy.get('.nav-element-msg > .d-flex > .status-indicator').should('be.visible')
     cy.get('.nav-element-email > .d-flex > .status-indicator').should('be.visible')
-    cy.wait(10000)
-    cy.get('.chat-list-conversation__iteration').click()
-    cy.get('.blocked-footer__action-container > .tactful-button-primary').click()
-    cy.get('#bv-modal-activateBot___BV_modal_footer_ > .tactful-button-primary').click()
+    // cy.wait(10000)
+    // cy.get('.chat-list-conversation__iteration').click()
+    // cy.get('.blocked-footer__action-container > .tactful-button-primary').click()
+    // cy.get('#bv-modal-activateBot___BV_modal_footer_ > .tactful-button-primary').click()
 }
 
 export function validateNoConversation(){

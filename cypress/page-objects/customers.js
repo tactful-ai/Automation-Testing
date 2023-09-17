@@ -179,7 +179,7 @@ export function filterCustomerChannels(){
     //cy.get('#vs22__combobox').click()
     // cy.get('#vs22__combobox > .vs__actions > .vs__open-indicator > .fa').click()
     // cy.get('#vs13__combobox > .vs__selected-options > .vs__search').click()
-    cy.get('#vs22__combobox').click()
+    cy.get('#vs19__combobox').click()
     cy.contains('test').click()
     cy.get('[cols="2"] > .tactful-button-secondary').click()
     const channelChoice = cy.get('.customer-segmentation-modal-actions-container > div > .tactful-button-primary')

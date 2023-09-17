@@ -33,10 +33,11 @@ export function createQueue(){
     cy.get('#vs2__combobox > .vs__selected-options > .vs__search').invoke('show')
     cy.contains('Highest').click()
     cy.get('#vs3__combobox > .vs__selected-options').click()
-    cy.contains('name').click()
+    cy.contains('temp').click()
     cy.get('.add-edit-queue__channel-error > :nth-child(1)').click()
     cy.get('#vs4__combobox > .vs__selected-options').click()
     cy.get('#vs4__combobox > .vs__selected-options').invoke('show')
+    cy.contains('Training').click()
     cy.get('.add-edit-queue__actions > .mr-2').click()
 }
 

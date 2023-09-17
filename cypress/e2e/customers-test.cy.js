@@ -15,13 +15,27 @@ describe('testing customer page',()=>{
       return false
     })
 
+    const url = "https://app.qa.dev.tactful.ai/v/engage/erp/customers";
+     
+    // beforeEach(() => {
+      
+    // });
+    before(()=>{
+      cy.manualLogin(
+        { selector: "#username", value: "hipeme4062@tipent.com " },
+        { selector: "#password", value: "TrainingProgram2023" },
+        url,
+        "#kc-form-buttons"
+      )
+    })
+
     // it('Should fix handling error',()=>{
     //   customer.navigate()
     // })
-    it('Should be able to sign in',() =>{
-        customer.login(businessEmailData,passwordData)
-        cy.wait(10000)
-    })
+    // it('Should be able to sign in',() =>{
+    //     customer.login(businessEmailData,passwordData)
+    //     cy.wait(10000)
+    // })
 
     it('Should Create new Customer',() =>{
         cy.wait(10000)

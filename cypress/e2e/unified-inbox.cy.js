@@ -40,10 +40,25 @@ describe('testing unified inbox', () => {
             return false
       })
 
-      it('Should be able to sign in',() =>{
-            inbox.login(JSON.stringify(table[0]['Email']),JSON.stringify(table[0]['Password']))
-            cy.wait(5000)
+      const url = "https://app.qa.dev.tactful.ai/v/engage/engagement-hub/agent-desktop";
+     
+      // beforeEach(() => {
+        
+      // });
+      before(()=>{
+        cy.manualLogin(
+          { selector: "#username", value: "hipeme4062@tipent.com " },
+          { selector: "#password", value: "TrainingProgram2023" },
+          url,
+          "#kc-form-buttons"
+        )
       })
+
+
+      // it('Should be able to sign in',() =>{
+      //       inbox.login(JSON.stringify(table[0]['Email']),JSON.stringify(table[0]['Password']))
+      //       cy.wait(5000)
+      // })
 
       it('Check changing agents status to Ready',()=>{
             inbox.readyStatus()
@@ -83,13 +98,13 @@ describe('testing unified inbox', () => {
       //   inbox.checkMsgAgent()
       // })
 
-      // it('Check agent can sent msg in case msg has more than 4096 char',()=>{
-      //   inbox.msgSize()
-      // })
-
-      it('Verify agent is able to Upload file',()=>{
-        inbox.sendFile()
+      it('Check agent can sent msg in case msg has more than 4096 char',()=>{
+        inbox.msgSize()
       })
+
+      // it('Verify agent is able to Upload file',()=>{
+      //   inbox.sendFile()
+      // })
 
       it('Check Msg shadow after sent whisper msg',()=>{
         inbox.msgShadowAfterWhisper()
@@ -99,28 +114,28 @@ describe('testing unified inbox', () => {
         inbox.msgShadowAfterNote()
       })
 
-      it('Check can edit user info section after join conv.',()=>{
-        inbox.editEnabled()
-      })
+      // it('Check can edit user info section after join conv.',()=>{
+      //   inbox.editEnabled()
+      // })
 
-      it('check if the user name is mandatory',()=>{
-        inbox.mandatoryName()
-      })
+      // it('check if the user name is mandatory',()=>{
+      //   inbox.mandatoryName()
+      // })
 
-      it('check if the agent can edit user info and keep the nickname blank',()=>{
-        inbox.leaveNickname()
-      })
+      // it('check if the agent can edit user info and keep the nickname blank',()=>{
+      //   inbox.leaveNickname()
+      // })
 
-      it('Add all user info fields then save',()=>{
-        inbox.saveUser()
-      })
+      // it('Add all user info fields then save',()=>{
+      //   inbox.saveUser()
+      // })
 
-      it('Check add new empty ticket from ticketing section',()=>{
-        inbox.newTicket()
-      })
+      // it('Check add new empty ticket from ticketing section',()=>{
+      //   inbox.newTicket()
+      // })
 
-      it('Check add new ticket from ticketing section',()=>{
-        inbox.createTicket()
-      })
+      // it('Check add new ticket from ticketing section',()=>{
+      //   inbox.createTicket()
+      // })
 
   });

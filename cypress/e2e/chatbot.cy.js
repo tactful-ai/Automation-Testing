@@ -40,10 +40,24 @@ describe('testing chatbot', () => {
             return false
       })
 
-      it('Should be able to sign in',() =>{
-            chatbot.login(JSON.stringify(table[0]['Email']),JSON.stringify(table[0]['Password']))
-            cy.wait(5000)
+      const url = "https://app.qa.dev.tactful.ai/v/engage/engagement-hub/queueing";
+     
+      // beforeEach(() => {
+        
+      // });
+      before(()=>{
+        cy.manualLogin(
+          { selector: "#username", value: "hipeme4062@tipent.com " },
+          { selector: "#password", value: "TrainingProgram2023" },
+          url,
+          "#kc-form-buttons"
+        )
       })
+
+      // it('Should be able to sign in',() =>{
+      //       chatbot.login(JSON.stringify(table[0]['Email']),JSON.stringify(table[0]['Password']))
+      //       cy.wait(5000)
+      // })
 
       it('Check adding empty queue',()=>{
             chatbot.emptyQueue()
