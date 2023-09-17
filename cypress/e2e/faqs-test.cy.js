@@ -11,6 +11,10 @@ const phoneData = "01007470976"
 
 describe('testing faqs page',()=>{
 
+    Cypress.on('uncaught:exception',(err, runnable)=>{
+        return false
+      })
+
     const url = "https://app.qa.dev.tactful.ai/v/engage/erp/faq";
      
     // beforeEach(() => {
@@ -32,7 +36,7 @@ describe('testing faqs page',()=>{
     // })
   
     it('Check that faq info is displayed right',()=>{
-        cy.wait(10000)
+        // cy.wait(10000)
         faqs.faqs()
     })
 

@@ -45,7 +45,7 @@ export function newFaqs(){
     cy.get('.tactful-textarea-input').type('Test Answers')
     cy.get('.cancel-faq-edit').click()
     cy.get('.ml-3').click()
-    cy.wait(40000)
+    // cy.wait(40000)
     // cy.get('.tactful-button-primary').click()
 }
 
