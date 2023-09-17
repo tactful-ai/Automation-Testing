@@ -146,14 +146,14 @@ describe("webchat creation tests", () => {
 
   describe("test editing channels", () => {
     it("check can clicking on Edit channel ", () => {
-      cy.visit(url);
+      cy.goTo(url);
       waitFor(".loader-container", "not.exist");
       cy.contains(webchatSelector.channelTag, "#2").siblings(webchatSelector.channelEdit).click();
     });
     it("check click discard ", () => {
       cy.goTo(webchat.getEditUrl("2"));
       waitFor(".loader-container", "not.exist");
-      type(webchatSelector.tagInput, "22");
+      type(webchatSelector.tagInput, "new tag ");
       cy.wait(6000);
       clickOn(["button", "Discard"]);
       cy.get(webchatSelector.tagInput).should("contain.value", "2");
