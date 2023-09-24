@@ -22,13 +22,7 @@ describe("testing channel monitering page", () => {
     cy.intercept("https://livechat-server.qa.dev.tactful.ai/conversation/getConversationByQuery", (req) => {
       req.reply(moniterData.queueConvos)  
     }).as("convos")
-    cy.intercept('GET','https://livechat-server.qa.dev.tactful.ai/queue/getall',getall)
-    cy.intercept('GET','https://api.qa.dev.tactful.ai/tenants/v1/profiles/740/billing/info',info)
-    cy.intercept('GET','https://api.qa.dev.tactful.ai/tenants/v1/profiles/740',profileid)
-    cy.intercept('GET','https://api.qa.dev.tactful.ai/auth/v1/me',authme)
-    cy.intercept('GET','https://api.qa.dev.tactful.ai/auth/v1/memberships/profiles',profiles)
-    cy.intercept('GET','https://api.qa.dev.tactful.ai/tenants/v1/profiles/740/billing/limits',limits)
-    
+  
     cy.manualLogin(
       { selector: "#username", value: "hipeme4062@tipent.com " },
       { selector: "#password", value: "TrainingProgram2023" },
@@ -43,12 +37,7 @@ describe("testing channel monitering page", () => {
   }
 
   it("should filter according to the chosen agent", () => {
-    
-    cy.intercept("https://livechat-server.qa.dev.tactful.ai/conversation/getConversationByQuery", (req) => {
-      req.continue((res) => {
-       res.body = moniterData.queueConvos
-      });
-    }).as("convos");
+
     moniter.drobDownFilterOnly(moniteringSelector.agentDrobDown, moniteringSelector.agentList, "bot", AssertionFn, [
       "5",
       "bot",
