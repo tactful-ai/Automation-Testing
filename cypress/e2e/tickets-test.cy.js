@@ -4,6 +4,7 @@ import { dropDown, type, waitFor } from "../page-objects/actions.js";
 import tickets from "../page-objects/tickets";
 import { ticketsSelector } from "../fixtures/selectors";
 import ticketsData from "../fixtures/tickets-data.json"
+import loginData from "../fixtures/login.json"
 describe("testing tickets page", () => {
   const url = "https://app.qa.dev.tactful.ai/v/engage/erp/ticketing";
   Cypress.on("uncaught:exception", (err, runnable) => {
@@ -13,19 +14,27 @@ describe("testing tickets page", () => {
 
   before(() => {
     cy.intercept(`*`, { log: false });
-  
-    cy.fixture("login").then((data) => {
-      cy.manualLogin(data.username, data.password, url, "#kc-form-buttons");
-    });
+    cy.intercept('GET','https://api.qa.dev.tactful.ai/erp/v1/settings', (req) => {
+      req.continue((res) => {
+        tickets.statusCodes.push(res.statusCode)
+      })
+    }).as('settings')
+    
+      cy.manualLogin(loginData.username, loginData.password, url, "#kc-form-buttons");
+    
   });
   beforeEach(() => {
+    cy.intercept('GET','https://api.qa.dev.tactful.ai/erp/v1/settings', (req) => {
+      req.continue((res) => {
+        tickets.statusCodes.push(res.statusCode)
+      })
+    }).as('settings')
     cy.intercept(`*`, { log: false });
   });
   it("should filter by an existing ticket id", () => {
     const assertion = (value) => {
       cy.get(".id-number").should("exist").contains(value);
     };
-    cy.visit(url);
     tickets.filter(type, assertion, [ticketsSelector.ticketNumber, 1], [1]);
   });
 
@@ -69,6 +78,7 @@ describe("testing tickets page", () => {
       tickets.isContainRecords();
     }
     tickets.filter(type, assertionFn, [ticketsSelector.userName, "second customer"], [0]);
+
   });
 
   it("should filter by 'assigned to' while there are existing tickets assigned to this agent", () => {
@@ -205,10 +215,10 @@ describe("testing tickets page", () => {
     tickets.filter(testCaseFn, assertionFn, params, ["Incident", 14]);
   });
 
-  it("see detials", () => {
+  it("see detials and edit them", () => {
     function isSuccess(colorRGB) {
       cy.get(ticketsSelector.statusContainer).should("have.css", "background-color", colorRGB);
-      cy.get(ticketsSelector.notificationGroup, { timeout: 10000 })
+      cy.get(ticketsSelector.notificationMsg, { timeout: 10000 })
         .should("exist")
         .and("contain.text", "SUCCESS Saving Information Succeeded");
       cy.get(ticketsSelector.notificationGroup).click();
@@ -216,13 +226,13 @@ describe("testing tickets page", () => {
     cy.visit("https://app.qa.dev.tactful.ai/v/engage/erp/editTicket/406");
     waitFor(".loader-container", "not.exist");
     cy.wait(5000)
-    dropDown(".status-container button", ".status-container div", "New");
+    dropDown(".rounded-dropdown", ".status-container div", "New");
     isSuccess("rgb(230, 195, 72)");
-    dropDown(".status-container button", ".status-container div", "Solved");
+    dropDown(".rounded-dropdown", ".status-container div", "Solved");
     isSuccess("rgb(2, 188, 119)");
-    dropDown(".status-container button", ".status-container div", "Canceled");
+    dropDown(".rounded-dropdown", ".status-container div", "Canceled");
     isSuccess("rgb(232, 74, 95)");
-    dropDown(".status-container button", ".status-container div", "In Progress");
+    dropDown(".rounded-dropdown", ".status-container div", "In Progress");
     isSuccess("rgb(21, 145, 207)");
   });
 });
