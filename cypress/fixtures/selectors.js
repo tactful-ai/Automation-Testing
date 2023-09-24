@@ -19,8 +19,8 @@ export let ticketsSelector ={
     channelDrobDown : '#vs5__combobox > .vs__actions',
     channelList : '#vs5__listbox li',
     idNumber : '[data-label="#"]',
-    statusContainer : '.status-btn[data-v-6f3d9e24]',
-    notificationGroup : '.vue-notification-group',
+    statusContainer : '.rounded-dropdown',
+    notificationMsg : '.media-body',
     dueDateModal : "#bv-modal-setDueDate___BV_modal_content_",
 }
 
@@ -35,8 +35,10 @@ export let moniteringSelector = {
     queueList: '#vs4__listbox li'  ,
     HandoverDrobDown:'#vs5__combobox >.vs__actions',
     handOverList:"#vs5__listbox li",
-    nickName:'.form-input-with-icon-search[data-v-dbb1b4b6]'
+    nickName:'input[placeholder="Name/Nick Name"]'
 }
+export let count = 0
+
 
 export let webchatSelector = {
     validationError :'.validation-msg-error',
