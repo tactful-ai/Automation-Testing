@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 
 import { moniteringSelector } from "../fixtures/selectors.js";
-import moniterData from "../fixtures/moniter-data.json";
+import moniterData from "../fixtures/moniter-mock-data.json";
 import moniter from "../page-objects/moniter";
 
 describe("testing channel monitering page", () => {
